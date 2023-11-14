@@ -48,15 +48,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
         $result = mysqli_query($link, $sql);
 
+        
+
         if (mysqli_num_rows($result) > 0)
         {
+
+            $row = mysqli_fetch_assoc($result);
+
+            // Extract the username from the row
+            $fetched_username = $row['username'];
+
             // session_regenerate_id(true);
             session_start();
 
             /* Store data in session variables */
             $_SESSION["loggedin"] = true;
             $_SESSION["id"] = $id;
-            $_SESSION["username"] = $username;
+            $_SESSION["username"] =  $fetched_username;
 
             /* Redirect user to welcome page */
             header("location: welcome.php");
